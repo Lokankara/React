@@ -46,13 +46,18 @@ describe('CourseCard component', () => {
 	test('Should map author IDs to author names correctly', () => {
 		const multiAuthorCourse = {
 			...mockCourse,
-			authors: ['27cc3006-e93a-4748-8ca8-73d06aa93b6d', 'f762978b-61eb-4096-812b-ebde22838167'],
+			authors: [
+				'27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+				'f762978b-61eb-4096-812b-ebde22838167',
+			],
 		};
 		const multiAuthors = [
 			{ id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d', name: 'Vasiliy Dobkin' },
 			{ id: 'f762978b-61eb-4096-812b-ebde22838167', name: 'Nicolas Kim' },
 		];
-		render(<CourseCard course={multiAuthorCourse} authorsList={multiAuthors} />);
+		render(
+			<CourseCard course={multiAuthorCourse} authorsList={multiAuthors} />
+		);
 		expect(screen.getByText(/Vasiliy Dobkin/)).toBeInTheDocument();
 		expect(screen.getByText(/Nicolas Kim/)).toBeInTheDocument();
 	});

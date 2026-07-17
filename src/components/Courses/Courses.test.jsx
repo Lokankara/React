@@ -2,17 +2,22 @@ import { render, screen } from '@testing-library/react';
 import { Courses } from './Courses';
 
 jest.mock('./components/SearchBar/SearchBar', () => ({
-	SearchBar: () => <div data-testid="searchbar">SearchBar</div>,
+	SearchBar: () => <div data-testid='searchbar'>SearchBar</div>,
 }));
 
 jest.mock('./components/CourseCard/CourseCard', () => ({
-	CourseCard: ({ course }) => <div data-testid="coursecard">{course.title}</div>,
+	CourseCard: ({ course }) => (
+		<div data-testid='coursecard'>{course.title}</div>
+	),
 }));
 
 jest.mock('../../common/Button/Button', () => ({
-	Button: ({ buttonText, onClick }) => <button className="custom-button" onClick={onClick}>{buttonText}</button>,
+	Button: ({ buttonText, onClick }) => (
+		<button className='custom-button' onClick={onClick}>
+			{buttonText}
+		</button>
+	),
 }));
-
 
 jest.mock('../../constants', () => ({
 	BUTTON_TEXTS: {
@@ -25,8 +30,22 @@ jest.mock('./courses.css', () => ({}));
 
 describe('Courses component', () => {
 	const mockCourses = [
-		{ id: '1', title: 'JavaScript', description: 'Desc', creationDate: '8/3/2021', duration: 160, authors: [] },
-		{ id: '2', title: 'Angular', description: 'Desc', creationDate: '10/11/2020', duration: 210, authors: [] },
+		{
+			id: '1',
+			title: 'JavaScript',
+			description: 'Desc',
+			creationDate: '8/3/2021',
+			duration: 160,
+			authors: [],
+		},
+		{
+			id: '2',
+			title: 'Angular',
+			description: 'Desc',
+			creationDate: '10/11/2020',
+			duration: 210,
+			authors: [],
+		},
 	];
 
 	const mockAuthors = [
@@ -47,7 +66,9 @@ describe('Courses component', () => {
 
 	test('Should render Add New Course button', () => {
 		render(<Courses coursesList={mockCourses} authorsList={mockAuthors} />);
-		expect(screen.getByRole('button', { name: /add new course/i })).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: /add new course/i })
+		).toBeInTheDocument();
 	});
 
 	test('Should display all courses from mockedCoursesList', () => {
