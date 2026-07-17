@@ -1,9 +1,7 @@
 import React from 'react';
 
+import logo from '../../../../logo.svg';
+
 export const Logo = () => (
-	<img
-		src='/logo192.png'
-		alt='Logo'
-		style={{ height: '45px', width: 'auto' }}
-	/>
+	<img src={logo} alt='Logo' style={{ height: '65px', width: 'auto' }} />
 );
