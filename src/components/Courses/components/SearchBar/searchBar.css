@@ -1,0 +1,11 @@
+.search-bar-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  width: 100%;
+}
+
+.search-input-wrapper {
+  flex-grow: 1;
+  max-width: 500px;
+}

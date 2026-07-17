@@ -1,0 +1,18 @@
+.courses-container {
+  border: 2px solid #1e88e5;
+  padding: 25px;
+  background-color: #ffffff;
+}
+
+.courses-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.courses-list {
+  display: flex;
+  flex-direction: column;
+}

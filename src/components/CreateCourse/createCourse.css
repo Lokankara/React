@@ -1,0 +1,112 @@
+.create-course-wrapper {
+  border: 2px solid #ff9800;
+  padding: 25px;
+  background-color: #ffffff;
+}
+
+.create-course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 25px;
+  gap: 30px;
+}
+
+.title-input-box {
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.description-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 25px;
+}
+
+.description-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.description-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  resize: vertical;
+}
+
+.description-textarea:focus {
+  border-color: #ff9800;
+}
+
+.create-course-panel {
+  border: 1px solid #000;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.panel-left-column,
+.panel-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sub-section-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sub-section-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.duration-preview {
+  font-size: 20px;
+  margin: 10px 0 0 0;
+}
+
+.duration-time {
+  font-weight: bold;
+}
+
+.authors-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.author-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.empty-message {
+  text-align: center;
+  color: #777;
+  margin: 10px 0;
+}
