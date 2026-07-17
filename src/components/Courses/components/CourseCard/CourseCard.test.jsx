@@ -52,8 +52,14 @@ describe('CourseCard component', () => {
 			],
 		};
 		const multiAuthors = [
-			{ id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d', name: 'Vasiliy Dobkin' },
-			{ id: 'f762978b-61eb-4096-812b-ebde22838167', name: 'Nicolas Kim' },
+			{
+				id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+				name: 'Vasiliy Dobkin',
+			},
+			{
+				id: 'f762978b-61eb-4096-812b-ebde22838167',
+				name: 'Nicolas Kim',
+			},
 		];
 		render(
 			<CourseCard course={multiAuthorCourse} authorsList={multiAuthors} />

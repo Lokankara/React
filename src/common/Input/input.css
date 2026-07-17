@@ -23,3 +23,13 @@
 .input-element:focus {
   border-color: #50b6e2;
 }
+
+.input-error {
+  border-color: #dc3545;
+}
+
+.input-error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}

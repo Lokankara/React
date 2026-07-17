@@ -85,7 +85,9 @@ describe('CreateCourse component', () => {
 				onSaveCourse={onSaveCourse}
 			/>
 		);
-		const createButton = screen.getByRole('button', { name: /create course/i });
+		const createButton = screen.getByRole('button', {
+			name: /create course/i,
+		});
 		fireEvent.click(createButton);
 		expect(onSaveCourse).not.toHaveBeenCalled();
 	});
@@ -100,7 +102,9 @@ describe('CreateCourse component', () => {
 				onSaveCourse={onSaveCourse}
 			/>
 		);
-		const createButton = screen.getByRole('button', { name: /create course/i });
+		const createButton = screen.getByRole('button', {
+			name: /create course/i,
+		});
 		fireEvent.click(createButton);
 		expect(window.alert).toHaveBeenCalled();
 	});

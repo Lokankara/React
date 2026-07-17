@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './input.css';
 
@@ -8,6 +9,7 @@ export const Input = ({
 	value,
 	onChange,
 	type = 'text',
+	error,
 }) => {
 	const inputId = React.useId();
 
@@ -20,12 +22,22 @@ export const Input = ({
 			)}
 			<input
 				id={inputId}
-				className='input-element'
+				className={`input-element ${error ? 'input-error' : ''}`}
 				type={type}
 				placeholder={placeholderText}
 				value={value}
 				onChange={onChange}
 			/>
+			{error && <span className='input-error-message'>{error}</span>}
 		</div>
 	);
+};
+
+Input.propTypes = {
+	labelText: PropTypes.string,
+	placeholderText: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	onChange: PropTypes.func.isRequired,
+	type: PropTypes.string,
+	error: PropTypes.string,
 };

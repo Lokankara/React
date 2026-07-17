@@ -1,0 +1,25 @@
+.course-info-container {
+	padding: 20px;
+}
+
+.back-link {
+	text-decoration: none;
+}
+
+.course-info-content {
+	margin-top: 20px;
+}
+
+.course-info-title {
+	margin-bottom: 20px;
+}
+
+.course-info-details {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.info-label {
+	font-weight: bold;
+}

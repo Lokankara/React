@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Courses } from './Courses';
 
 jest.mock('./components/SearchBar/SearchBar', () => ({
@@ -54,25 +55,41 @@ describe('Courses component', () => {
 	];
 
 	test('Should render SearchBar component', () => {
-		render(<Courses coursesList={mockCourses} authorsList={mockAuthors} />);
+		render(
+			<BrowserRouter>
+				<Courses coursesList={mockCourses} authorsList={mockAuthors} />
+			</BrowserRouter>
+		);
 		expect(screen.getByTestId('searchbar')).toBeInTheDocument();
 	});
 
 	test('Should render list of CourseCard components', () => {
-		render(<Courses coursesList={mockCourses} authorsList={mockAuthors} />);
+		render(
+			<BrowserRouter>
+				<Courses coursesList={mockCourses} authorsList={mockAuthors} />
+			</BrowserRouter>
+		);
 		const courseCards = screen.getAllByTestId('coursecard');
 		expect(courseCards).toHaveLength(2);
 	});
 
 	test('Should render Add New Course button', () => {
-		render(<Courses coursesList={mockCourses} authorsList={mockAuthors} />);
+		render(
+			<BrowserRouter>
+				<Courses coursesList={mockCourses} authorsList={mockAuthors} />
+			</BrowserRouter>
+		);
 		expect(
 			screen.getByRole('button', { name: /add new course/i })
 		).toBeInTheDocument();
 	});
 
 	test('Should display all courses from mockedCoursesList', () => {
-		render(<Courses coursesList={mockCourses} authorsList={mockAuthors} />);
+		render(
+			<BrowserRouter>
+				<Courses coursesList={mockCourses} authorsList={mockAuthors} />
+			</BrowserRouter>
+		);
 		expect(screen.getByText('JavaScript')).toBeInTheDocument();
 		expect(screen.getByText('Angular')).toBeInTheDocument();
 	});

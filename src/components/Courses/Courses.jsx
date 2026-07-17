@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { CourseCard } from './components/CourseCard/CourseCard';
@@ -7,7 +9,7 @@ import { BUTTON_TEXTS } from '../../constants';
 
 import './courses.css';
 
-export const Courses = ({ coursesList, authorsList, onAddNewCourseClick }) => {
+export const Courses = ({ coursesList, authorsList }) => {
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const handleSearch = (query) => {
@@ -28,10 +30,9 @@ export const Courses = ({ coursesList, authorsList, onAddNewCourseClick }) => {
 		<section className='courses-container'>
 			<div className='courses-header-controls'>
 				<SearchBar onSearch={handleSearch} />
-				<Button
-					buttonText={BUTTON_TEXTS.ADD_NEW_COURSE}
-					onClick={onAddNewCourseClick}
-				/>
+				<Link to='/courses/add' className='add-course-link'>
+					<Button buttonText={BUTTON_TEXTS.ADD_NEW_COURSE} />
+				</Link>
 			</div>
 			<div className='courses-list'>
 				{filteredCourses.map((course) => (
@@ -44,4 +45,23 @@ export const Courses = ({ coursesList, authorsList, onAddNewCourseClick }) => {
 			</div>
 		</section>
 	);
+};
+
+Courses.propTypes = {
+	coursesList: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			title: PropTypes.string.isRequired,
+			description: PropTypes.string.isRequired,
+			creationDate: PropTypes.string.isRequired,
+			duration: PropTypes.number.isRequired,
+			authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+		})
+	).isRequired,
+	authorsList: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+		})
+	).isRequired,
 };

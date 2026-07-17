@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Input } from '../../common/Input/Input';
 import { Button } from '../../common/Button/Button';
 import { pipeDuration } from '../../helpers/pipeDuration';
-import { dateGenerator } from '../../helpers/dateGenerator';
 import { BUTTON_TEXTS, LABEL_TEXTS, PLACEHOLDER_TEXTS } from '../../constants';
 
 import './createCourse.css';
 
-export const CreateCourse = ({
-	authorsList,
-	onAddAuthor,
-	onSaveCourse,
-	onCancel,
-}) => {
+export const CreateCourse = ({ authorsList, onAddAuthor, onSaveCourse }) => {
+	const history = useHistory();
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [duration, setDuration] = useState(0);
@@ -44,13 +41,7 @@ export const CreateCourse = ({
 			alert('Author name length must be at least 2 characters');
 			return;
 		}
-		const newAuthor = {
-			id: crypto.randomUUID
-				? crypto.randomUUID()
-				: Math.random().toString(36).substr(2, 9),
-			name: authorName.trim(),
-		};
-		onAddAuthor(newAuthor);
+		onAddAuthor({ name: authorName.trim() });
 		setAuthorName('');
 	};
 
@@ -74,17 +65,14 @@ export const CreateCourse = ({
 		}
 
 		const newCourse = {
-			id: crypto.randomUUID
-				? crypto.randomUUID()
-				: Math.random().toString(36).substr(2, 9),
 			title: title.trim(),
 			description: description.trim(),
-			creationDate: dateGenerator(),
 			duration,
 			authors: courseAuthors.map((a) => a.id),
 		};
 
 		onSaveCourse(newCourse);
+		history.push('/courses');
 	};
 
 	return (
@@ -102,7 +90,10 @@ export const CreateCourse = ({
 					buttonText={BUTTON_TEXTS.CREATE_COURSE}
 					onClick={handleCreateCourseSubmit}
 				/>
-				<Button buttonText={BUTTON_TEXTS.CANCEL} onClick={onCancel} />
+				<Button
+					buttonText={BUTTON_TEXTS.CANCEL}
+					onClick={() => history.push('/courses')}
+				/>
 			</div>
 
 			<div className='description-box'>
@@ -147,7 +138,9 @@ export const CreateCourse = ({
 						/>
 						<p className='duration-preview'>
 							Duration:{' '}
-							<span className='duration-time'>{pipeDuration(duration)}</span>
+							<span className='duration-time'>
+								{pipeDuration(duration)}
+							</span>
 						</p>
 					</div>
 				</div>
@@ -157,11 +150,16 @@ export const CreateCourse = ({
 						<h3 className='sub-section-title'>Authors</h3>
 						<div className='authors-list-wrapper'>
 							{availableAuthors.map((author) => (
-								<div key={author.id} className='author-item-row'>
+								<div
+									key={author.id}
+									className='author-item-row'
+								>
 									<span>{author.name}</span>
 									<Button
 										buttonText={BUTTON_TEXTS.ADD_AUTHOR}
-										onClick={() => handleAddAuthorToCourse(author)}
+										onClick={() =>
+											handleAddAuthorToCourse(author)
+										}
 									/>
 								</div>
 							))}
@@ -172,14 +170,24 @@ export const CreateCourse = ({
 						<h3 className='sub-section-title'>Course authors</h3>
 						<div className='authors-list-wrapper'>
 							{courseAuthors.length === 0 ? (
-								<p className='empty-message'>Author list is empty</p>
+								<p className='empty-message'>
+									Author list is empty
+								</p>
 							) : (
 								courseAuthors.map((author) => (
-									<div key={author.id} className='author-item-row'>
+									<div
+										key={author.id}
+										className='author-item-row'
+									>
 										<span>{author.name}</span>
 										<Button
+											// eslint-disable-next-line max-len
 											buttonText={BUTTON_TEXTS.DELETE_AUTHOR}
-											onClick={() => handleDeleteAuthorFromCourse(author)}
+											onClick={() =>
+												handleDeleteAuthorFromCourse(
+													author
+												)
+											}
 										/>
 									</div>
 								))
@@ -190,4 +198,15 @@ export const CreateCourse = ({
 			</div>
 		</section>
 	);
+};
+
+CreateCourse.propTypes = {
+	authorsList: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+		})
+	).isRequired,
+	onAddAuthor: PropTypes.func.isRequired,
+	onSaveCourse: PropTypes.func.isRequired,
 };

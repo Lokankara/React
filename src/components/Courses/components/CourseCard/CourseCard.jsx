@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Button } from '../../../../common/Button/Button';
 import { BUTTON_TEXTS } from '../../../../constants';
@@ -29,23 +31,52 @@ export const CourseCard = ({ course, authorsList }) => {
 				<div className='details-meta'>
 					<p className='meta-line'>
 						<span className='meta-label'>Authors:</span>{' '}
-						<span className='meta-value truncate' title={getAuthorsNames()}>
+						<span
+							className='meta-value truncate'
+							title={getAuthorsNames()}
+						>
 							{getAuthorsNames()}
 						</span>
 					</p>
 					<p className='meta-line'>
 						<span className='meta-label'>Duration:</span>{' '}
-						<span className='meta-value'>{pipeDuration(course.duration)}</span>
+						<span className='meta-value'>
+							{pipeDuration(course.duration)}
+						</span>
 					</p>
 					<p className='meta-line'>
 						<span className='meta-label'>Created:</span>{' '}
-						<span className='meta-value'>{course.creationDate}</span>
+						<span className='meta-value'>
+							{course.creationDate}
+						</span>
 					</p>
 				</div>
 				<div className='details-action'>
-					<Button buttonText={BUTTON_TEXTS.SHOW_COURSE} />
+					<Link
+						to={`/courses/${course.id}`}
+						className='show-course-link'
+					>
+						<Button buttonText={BUTTON_TEXTS.SHOW_COURSE} />
+					</Link>
 				</div>
 			</aside>
 		</article>
 	);
+};
+
+CourseCard.propTypes = {
+	course: PropTypes.shape({
+		id: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
+		description: PropTypes.string.isRequired,
+		creationDate: PropTypes.string.isRequired,
+		duration: PropTypes.number.isRequired,
+		authors: PropTypes.arrayOf(PropTypes.string).isRequired,
+	}).isRequired,
+	authorsList: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+		})
+	).isRequired,
 };

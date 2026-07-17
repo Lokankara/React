@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { Input } from '../../../../common/Input/Input';
 import { Button } from '../../../../common/Button/Button';
@@ -30,7 +31,14 @@ export const SearchBar = ({ onSearch }) => {
 					onChange={handleSearchChange}
 				/>
 			</div>
-			<Button buttonText={BUTTON_TEXTS.SEARCH} onClick={handleSearchSubmit} />
+			<Button
+				buttonText={BUTTON_TEXTS.SEARCH}
+				onClick={handleSearchSubmit}
+			/>
 		</div>
 	);
+};
+
+SearchBar.propTypes = {
+	onSearch: PropTypes.func.isRequired,
 };
