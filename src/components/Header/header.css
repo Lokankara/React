@@ -1,0 +1,20 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border: 2px solid #b71c1c;
+  background-color: #ffffff;
+  margin-bottom: 25px;
+}
+
+.header-user-panel {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 16px;
+}
