@@ -15,6 +15,10 @@ npx husky init
 npm install husky --save-dev
 
 echo "npm run prepublish" > .husky/pre-commit
+
+git config core.hooksPath .husky
+
+chmod +x .husky/pre-commit
 ```
 
 ### eslint
