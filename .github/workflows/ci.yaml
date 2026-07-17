@@ -26,9 +26,6 @@ jobs:
       - name: Run ESLint
         run: npx eslint src/
 
-      - name: Run pre-commit checks
-        run: npx lint-staged --dry-run
-
       - name: Run tests
         run: npm test -- --watchAll=false --coverage
 

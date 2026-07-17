@@ -102,6 +102,7 @@ export const CreateCourse = ({
 					buttonText={BUTTON_TEXTS.CREATE_COURSE}
 					onClick={handleCreateCourseSubmit}
 				/>
+				<Button buttonText={BUTTON_TEXTS.CANCEL} onClick={onCancel} />
 			</div>
 
 			<div className='description-box'>

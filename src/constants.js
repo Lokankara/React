@@ -48,6 +48,7 @@ export const BUTTON_TEXTS = {
 	SEARCH: 'Search',
 	ADD_NEW_COURSE: 'Add new course',
 	CREATE_COURSE: 'Create course',
+	CANCEL: 'Cancel',
 	CREATE_AUTHOR: 'Create author',
 	ADD_AUTHOR: 'Add author',
 	DELETE_AUTHOR: 'Delete author',
