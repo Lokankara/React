@@ -100,17 +100,12 @@ function App() {
 								authorsList={authors}
 							/>
 						</Route>
-						<Route path='/'>
-							{() => {
-								const isAuthed =
-									!!localStorage.getItem('token');
-								return isAuthed ? (
-									<Redirect to='/courses' />
-								) : (
-									<Redirect to='/login' />
-								);
-							}}
-						</Route>
+						<Route exact path='/' render={() => {
+							const isAuthed = !!localStorage.getItem('token');
+							return isAuthed
+							? <Redirect to='/courses' />
+							: <Redirect to='/login' />;
+						}} />
 					</Switch>
 				</main>
 			</div>
