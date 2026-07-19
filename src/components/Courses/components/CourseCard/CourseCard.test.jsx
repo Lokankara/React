@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { CourseCard } from './CourseCard';
 
-// Mock CSS import
 jest.mock('./courseCard.css', () => ({}));
 
 const mockCourse = {
@@ -17,29 +17,58 @@ const mockAuthors = [
 	{ id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d', name: 'Vasiliy Dobkin' },
 ];
 
+const renderWithRouter = (ui) => {
+	return render(<BrowserRouter>{ui}</BrowserRouter>);
+};
+
 describe('CourseCard component', () => {
 	test('Should display course title', () => {
-		render(<CourseCard course={mockCourse} authorsList={mockAuthors} />);
+		renderWithRouter(
+			<CourseCard
+				course={mockCourse}
+				authorsList={mockAuthors}
+			/>
+		);
 		expect(screen.getByText('JavaScript')).toBeInTheDocument();
 	});
 
 	test('Should display formatted duration (hh:mm hours)', () => {
-		render(<CourseCard course={mockCourse} authorsList={mockAuthors} />);
+		renderWithRouter(
+			<CourseCard
+				course={mockCourse}
+				authorsList={mockAuthors}
+			/>
+		);
 		expect(screen.getByText('02:40 hours')).toBeInTheDocument();
 	});
 
 	test('Should display creation date', () => {
-		render(<CourseCard course={mockCourse} authorsList={mockAuthors} />);
+		renderWithRouter(
+			<CourseCard
+				course={mockCourse}
+				authorsList={mockAuthors}
+			/>
+		);
 		expect(screen.getByText('8/3/2021')).toBeInTheDocument();
 	});
 
 	test('Should display course description', () => {
-		render(<CourseCard course={mockCourse} authorsList={mockAuthors} />);
+		renderWithRouter(
+			<CourseCard
+				course={mockCourse}
+				authorsList={mockAuthors}
+			/>
+		);
 		expect(screen.getByText('Course description')).toBeInTheDocument();
 	});
 
 	test('Should display authors names on one line', () => {
-		render(<CourseCard course={mockCourse} authorsList={mockAuthors} />);
+		renderWithRouter(
+			<CourseCard
+				course={mockCourse}
+				authorsList={mockAuthors}
+			/>
+		);
 		expect(screen.getByText('Vasiliy Dobkin')).toBeInTheDocument();
 	});
 
@@ -52,11 +81,20 @@ describe('CourseCard component', () => {
 			],
 		};
 		const multiAuthors = [
-			{ id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d', name: 'Vasiliy Dobkin' },
-			{ id: 'f762978b-61eb-4096-812b-ebde22838167', name: 'Nicolas Kim' },
+			{
+				id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
+				name: 'Vasiliy Dobkin',
+			},
+			{
+				id: 'f762978b-61eb-4096-812b-ebde22838167',
+				name: 'Nicolas Kim',
+			},
 		];
-		render(
-			<CourseCard course={multiAuthorCourse} authorsList={multiAuthors} />
+		renderWithRouter(
+			<CourseCard
+				course={multiAuthorCourse}
+				authorsList={multiAuthors}
+			/>
 		);
 		expect(screen.getByText(/Vasiliy Dobkin/)).toBeInTheDocument();
 		expect(screen.getByText(/Nicolas Kim/)).toBeInTheDocument();

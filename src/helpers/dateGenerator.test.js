@@ -10,12 +10,14 @@ describe('dateGenerator helper', () => {
 	test('Should return current date', () => {
 		const date = dateGenerator();
 		const now = new Date();
+		// eslint-disable-next-line max-len
 		const expectedDate = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
 		expect(date).toBe(expectedDate);
 	});
 
 	test('Should format single digit day/month with leading zeros', () => {
-		// This test checks the format - actual leading zeros depend on implementation
+		// This test checks the format - actual leading zeros depend on
+		// implementation
 		const date = dateGenerator();
 		expect(date).toBeDefined();
 		expect(typeof date).toBe('string');

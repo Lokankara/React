@@ -15,26 +15,13 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react",
-    "prettier"
+    "react"
   ],
   "rules": {
-    "prettier/prettier": [
+    "max-len": [
       "error",
       {
-        "printWidth": 80,
-        "trailingComma": "es5",
-        "semi": true,
-        "jsxSingleQuote": true,
-        "singleQuote": true,
-        "useTabs": true,
-        "endOfLine": "auto",
-        "max-len": [
-          "error",
-          {
-            "code": 80
-          }
-        ]
+        "code": 80
       }
     ]
   }

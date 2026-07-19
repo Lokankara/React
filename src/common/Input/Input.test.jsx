@@ -13,7 +13,11 @@ describe('Input component', () => {
 	test('Should call onChange handler when input changes', () => {
 		const handleChange = jest.fn();
 		render(
-			<Input labelText='Test' placeholderText='Test' onChange={handleChange} />
+			<Input
+				labelText='Test'
+				placeholderText='Test'
+				onChange={handleChange}
+			/>
 		);
 		fireEvent.change(screen.getByRole('textbox'), {
 			target: { value: 'test' },
