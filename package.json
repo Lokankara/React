@@ -2,7 +2,7 @@
   "name": "courses-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Lokankara.github.io/React",
+  "homepage": "https://course-app-ui.netlify.app",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -24,9 +24,7 @@
     "eslint:fix": "eslint --fix --ext .js --ext .jsx src",
     "prepublish": "npm run eslint:fix",
     "prepare": "husky",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build",
-    "deploy:netlify": "netlify deploy --prod"
+    "predeploy": "npm run build"
   },
   "lint-staged": {
     "*.{js,jsx}": [
