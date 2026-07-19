@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:nowatch": "react-scripts test --watchAll=false",
-    "eslint": "eslint --ext .js --ext .jsx src",
+    "eslint": "eslint --ext .js --ext .jsx .",
     "eslint:fix": "eslint --fix --ext .js --ext .jsx src",
     "prepublish": "npm run eslint:fix",
     "prepare": "husky",

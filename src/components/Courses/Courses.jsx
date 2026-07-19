@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { SearchBar } from './components/SearchBar/SearchBar';
@@ -11,15 +11,20 @@ import './courses.css';
 
 export const Courses = ({ coursesList, authorsList }) => {
 	const [searchQuery, setSearchQuery] = useState('');
+	const history = useHistory();
 
 	const handleSearch = (query) => {
 		setSearchQuery(query);
 	};
 
-	const filteredCourses = !searchQuery.trim()
+	const handleAddCourse = () => {
+		history.push('/courses/add');
+	};
+
+	const cleanedQuery = searchQuery.toLowerCase().trim();
+	const filteredCourses = !cleanedQuery
 		? coursesList
 		: coursesList.filter((course) => {
-				const cleanedQuery = searchQuery.toLowerCase().trim();
 				return (
 					course.title.toLowerCase().includes(cleanedQuery) ||
 					course.id.toLowerCase().includes(cleanedQuery)
@@ -30,9 +35,10 @@ export const Courses = ({ coursesList, authorsList }) => {
 		<section className='courses-container'>
 			<div className='courses-header-controls'>
 				<SearchBar onSearch={handleSearch} />
-				<Link to='/courses/add' className='add-course-link'>
-					<Button buttonText={BUTTON_TEXTS.ADD_NEW_COURSE} />
-				</Link>
+				<Button
+					buttonText={BUTTON_TEXTS.ADD_NEW_COURSE}
+					onClick={handleAddCourse}
+				/>
 			</div>
 			<div className='courses-list'>
 				{filteredCourses.map((course) => (

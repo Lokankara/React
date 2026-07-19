@@ -23,6 +23,7 @@ export const Header = () => {
 		} catch (error) {
 			console.error('Logout error:', error);
 		}
+		localStorage.removeItem('token');
 		localStorage.removeItem('user');
 		history.push('/login');
 	};

@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 
 import { Input } from '../../common/Input/Input';
 import { Button } from '../../common/Button/Button';
+import { Modal } from '../../common/Modal/Modal';
 import { LABEL_TEXTS, PLACEHOLDER_TEXTS } from '../../constants';
 import { register } from '../../services/api';
 
@@ -14,6 +15,11 @@ export const Registration = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [errors, setErrors] = useState({});
+	const [modal, setModal] = useState({
+		isOpen: false,
+		title: '',
+		message: '',
+	});
 
 	const validateForm = () => {
 		const newErrors = {};
@@ -38,7 +44,7 @@ export const Registration = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
+
 		if (!validateForm()) {
 			return;
 		}
@@ -48,47 +54,66 @@ export const Registration = () => {
 			history.push('/login');
 		} catch (error) {
 			console.error('Registration error:', error);
+			setModal({
+				isOpen: true,
+				title: 'Registration Error',
+				message:
+					error.message ||
+					'Registration failed. Please try again.',
+			});
 		}
 	};
 
+	const handleCloseModal = () => {
+		setModal({ isOpen: false, title: '', message: '' });
+	};
+
 	return (
-		<section className='registration-container'>
-			<h2 className='registration-title'>Registration</h2>
-			<form className='registration-form' onSubmit={handleSubmit}>
-				<div className='form-fields'>
-				<Input
-					labelText={LABEL_TEXTS.TITLE}
-					placeholderText={PLACEHOLDER_TEXTS.TITLE}
-					value={name}
-					onChange={(e) => setName(e.target.value)}
-					error={errors.name}
-				/>
-				<Input
-					labelText='Email'
-					placeholderText='Enter email...'
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					type='email'
-					error={errors.email}
-				/>
-				<Input
-					labelText='Password'
-					placeholderText='Enter password...'
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					type='password'
-					error={errors.password}
-				/>
+		<>
+			<section className='registration-container'>
+				<h2 className='registration-title'>Registration</h2>
+				<form className='registration-form' onSubmit={handleSubmit}>
+					<div className='form-fields'>
+						<Input
+							labelText={LABEL_TEXTS.TITLE}
+							placeholderText={PLACEHOLDER_TEXTS.TITLE}
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+							error={errors.name}
+						/>
+						<Input
+							labelText='Email'
+							placeholderText='Enter email...'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							type='email'
+							error={errors.email}
+						/>
+						<Input
+							labelText='Password'
+							placeholderText='Enter password...'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							type='password'
+							error={errors.password}
+						/>
+					</div>
+					<div className='form-actions'>
+						<Button buttonText='Registration' type='submit' />
+					</div>
+				</form>
+				<div className='login-link-container'>
+					<Link to='/login' className='login-link'>
+						If you have an account, you can log in.
+					</Link>
 				</div>
-				<div className='form-actions'>
-					<Button buttonText='Registration' type='submit' />
-				</div>
-			</form>
-			<div className='login-link-container'>
-				<Link to='/login' className='login-link'>
-					If you have an account you can Login
-				</Link>
-			</div>
-		</section>
+			</section>
+			<Modal
+				isOpen={modal.isOpen}
+				onClose={handleCloseModal}
+				title={modal.title}
+				message={modal.message}
+			/>
+		</>
 	);
 };

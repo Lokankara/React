@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Button } from '../../../../common/Button/Button';
@@ -9,6 +9,8 @@ import { pipeDuration } from '../../../../helpers/pipeDuration';
 import './courseCard.css';
 
 export const CourseCard = ({ course, authorsList }) => {
+	const history = useHistory();
+
 	const getAuthorsNames = () => {
 		const names = course.authors
 			.map((authorId) => {
@@ -20,6 +22,12 @@ export const CourseCard = ({ course, authorsList }) => {
 		const line = names.join(', ');
 		return line;
 	};
+
+	const handleShowCourse = () => {
+		history.push(`/courses/${course.id}`);
+	};
+
+	const authorsNames = getAuthorsNames();
 
 	return (
 		<article className='course-card'>
@@ -33,9 +41,9 @@ export const CourseCard = ({ course, authorsList }) => {
 						<span className='meta-label'>Authors:</span>{' '}
 						<span
 							className='meta-value truncate'
-							title={getAuthorsNames()}
+							title={authorsNames}
 						>
-							{getAuthorsNames()}
+							{authorsNames}
 						</span>
 					</p>
 					<p className='meta-line'>
@@ -52,12 +60,10 @@ export const CourseCard = ({ course, authorsList }) => {
 					</p>
 				</div>
 				<div className='details-action'>
-					<Link
-						to={`/courses/${course.id}`}
-						className='show-course-link'
-					>
-						<Button buttonText={BUTTON_TEXTS.SHOW_COURSE} />
-					</Link>
+					<Button
+						buttonText={BUTTON_TEXTS.SHOW_COURSE}
+						onClick={handleShowCourse}
+					/>
 				</div>
 			</aside>
 		</article>

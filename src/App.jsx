@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import { Header } from './components/Header/Header';
@@ -20,24 +20,33 @@ function App() {
 	const [courses, setCourses] = useState([]);
 	const [authors, setAuthors] = useState([]);
 	const [loading, setLoading] = useState(true);
+	const [isAuthenticated, setIsAuthenticated] = useState(
+		!!localStorage.getItem('token')
+	);
+
+	const fetchData = useCallback(async () => {
+		setLoading(true);
+		try {
+			const [coursesData, authorsData] = await Promise.all([
+				getCourses(),
+				getAuthors(),
+			]);
+			setCourses(coursesData.result || []);
+			setAuthors(authorsData.result || []);
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		} finally {
+			setLoading(false);
+		}
+	}, []);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const [coursesData, authorsData] = await Promise.all([
-					getCourses(),
-					getAuthors(),
-				]);
-				setCourses(coursesData.result || []);
-				setAuthors(authorsData.result || []);
-			} catch (error) {
-				console.error('Error fetching data:', error);
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchData();
-	}, []);
+		if (isAuthenticated) {
+			fetchData();
+		} else {
+			setLoading(false);
+		}
+	}, [isAuthenticated, fetchData]);
 
 	const handleAddAuthor = async (newAuthor) => {
 		try {
@@ -45,6 +54,7 @@ function App() {
 			setAuthors((prev) => [...prev, response.result]);
 		} catch (error) {
 			console.error('Error creating author:', error);
+			throw error;
 		}
 	};
 
@@ -54,10 +64,9 @@ function App() {
 			setCourses((prev) => [response.result, ...prev]);
 		} catch (error) {
 			console.error('Error creating course:', error);
+			throw error;
 		}
 	};
-
-	const isAuthenticated = !!localStorage.getItem('token');
 
 	if (loading) {
 		return <div>Loading...</div>;
@@ -73,7 +82,7 @@ function App() {
 							<Registration />
 						</Route>
 						<Route path='/login'>
-							<Login />
+							<Login onLoginSuccess={setIsAuthenticated} />
 						</Route>
 						<Route path='/courses/add'>
 							<CreateCourse
@@ -92,11 +101,15 @@ function App() {
 							/>
 						</Route>
 						<Route path='/'>
-							{isAuthenticated ? (
-								<Redirect to='/courses' />
-							) : (
-								<Redirect to='/login' />
-							)}
+							{() => {
+								const isAuthed =
+									!!localStorage.getItem('token');
+								return isAuthed ? (
+									<Redirect to='/courses' />
+								) : (
+									<Redirect to='/login' />
+								);
+							}}
 						</Route>
 					</Switch>
 				</main>

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
 jest.mock('./components/Header/Header', () => ({
@@ -13,7 +13,18 @@ jest.mock('./components/CreateCourse/CreateCourse', () => ({
 	CreateCourse: () => <div data-testid='create-course'>CreateCourse</div>,
 }));
 
-// Mock constants
+jest.mock('./components/Login/Login', () => ({
+	Login: () => <div data-testid='login'>Login</div>,
+}));
+
+jest.mock('./components/Registration/Registration', () => ({
+	Registration: () => <div data-testid='registration'>Registration</div>,
+}));
+
+jest.mock('./components/CourseInfo/CourseInfo', () => ({
+	CourseInfo: () => <div data-testid='course-info'>CourseInfo</div>,
+}));
+
 jest.mock('./constants', () => ({
 	mockedCoursesList: [
 		{
@@ -39,14 +50,34 @@ jest.mock('./constants', () => ({
 	],
 }));
 
+// Mock API services
+jest.mock('./services/api', () => ({
+	getCourses: jest.fn(() => Promise.resolve({ result: [] })),
+	getAuthors: jest.fn(() => Promise.resolve({ result: [] })),
+	createCourse: jest.fn(),
+	createAuthor: jest.fn(),
+}));
+
 describe('App integration tests', () => {
-	test('Should render Header component', () => {
-		render(<App />);
-		expect(screen.getByTestId('header')).toBeInTheDocument();
+	beforeEach(() => {
+		localStorage.setItem('token', 'mock-token');
 	});
 
-	test('Should render Courses component by default', () => {
+	afterEach(() => {
+		localStorage.clear();
+	});
+
+	test('Should render Header component', async () => {
 		render(<App />);
-		expect(screen.getByTestId('courses')).toBeInTheDocument();
+		await waitFor(() => {
+			expect(screen.getByTestId('header')).toBeInTheDocument();
+		});
+	});
+
+	test('Should render Courses component by default', async () => {
+		render(<App />);
+		await waitFor(() => {
+			expect(screen.getByTestId('courses')).toBeInTheDocument();
+		});
 	});
 });

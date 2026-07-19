@@ -117,7 +117,6 @@ export const deleteCourse = async (id) => {
 	return response.json();
 };
 
-// Authors endpoints
 export const getAuthors = async () => {
 	const response = await fetch(`${API_BASE_URL}/authors/all`, {
 		method: 'GET',
@@ -152,7 +151,6 @@ export const createAuthor = async (author) => {
 	return response.json();
 };
 
-// Users endpoints
 export const getCurrentUser = async () => {
 	const response = await fetch(`${API_BASE_URL}/users/me`, {
 		method: 'GET',
